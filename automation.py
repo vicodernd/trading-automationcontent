@@ -30,9 +30,9 @@ RUN_DAILY = PROJECT_ROOT / "run_daily.py"
 LOG_DIR = PROJECT_ROOT / ".tmp"
 
 # Identifiers used by each OS scheduler so install/uninstall/status agree.
-LAUNCHD_LABEL = "com.vixlify.content-daily"
-WINDOWS_TASK = "VixlifyContentDaily"
-CRON_MARKER = "# vixlify-content-daily"
+LAUNCHD_LABEL = "com.content.daily"
+WINDOWS_TASK = "ContentDaily"
+CRON_MARKER = "# content-daily"
 
 HOUR = 8
 MINUTE = 0
@@ -89,7 +89,7 @@ def _warn_if_tcc_protected() -> None:
         print("      a) System Settings > Privacy & Security > Full Disk Access,")
         print(f"         add your Python interpreter: {sys.executable}")
         print("      b) or move this project outside Documents/Desktop/Downloads")
-        print("         (e.g. ~/vixlify-content) and re-run install.\n")
+        print("         (e.g. ~/content-automation) and re-run install.\n")
 
 
 def _launchd_install() -> None:

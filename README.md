@@ -1,4 +1,4 @@
-# Vixlify Content Automation
+# Content Automation
 
 Automated social media content creation built on the WAT framework (Workflows, Agents, Tools). Give it a trading or financial topic and it generates platform captions, sources image references, decides the content format, builds a mockup brief, and compiles everything into a Google Doc for the design team.
 
@@ -69,8 +69,8 @@ Turning it Off does not remove the scheduled job. The job stays registered and s
 
 - **macOS:** `browser-act` (BrowserAct CLI) is optional. If it is missing, image references fall back to Google Images search links.
 - **macOS privacy (important):** macOS protects `~/Documents`, `~/Desktop`, and `~/Downloads`. A scheduled launchd job cannot read files there even though a Terminal run works, so the 8 AM run fails with `Operation not permitted`. The easiest fix is the one in step 1: keep the project in your home folder. If you must keep it in a protected folder, grant Full Disk Access to your Python interpreter in System Settings under Privacy and Security. `python automation.py install` warns you when the project sits in a protected folder.
-- **Windows:** the scheduled task is named `VixlifyContentDaily` and runs with `pythonw.exe` so no console window appears. Logs still go to `.tmp/content-daily.log`.
-- **Linux:** the cron line is tagged with the comment `# vixlify-content-daily` for clean install and uninstall.
+- **Windows:** the scheduled task is named `ContentDaily` and runs with `pythonw.exe` so no console window appears. Logs still go to `.tmp/content-daily.log`.
+- **Linux:** the cron line is tagged with the comment `# content-daily` for clean install and uninstall.
 
 ## Files
 

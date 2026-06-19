@@ -91,9 +91,9 @@ The workflow can run automatically every day at 8 AM, driven by the schedule she
 **Flow:** the OS scheduler runs `run_daily.py`, which (1) checks the On/Off toggle in `automation.state` and stops if Off; (2) reads the sheet, matches today's date against `Tanggal`; (3) runs the workflow for that day's `Materi`. If today has no row, or the `Materi` cell is empty, it skips silently and makes no API call.
 
 **Scheduler is native and auto-detected** by `automation.py`:
-- macOS → launchd (`com.vixlify.content-daily`)
-- Windows → Task Scheduler (`VixlifyContentDaily`, runs `pythonw.exe`)
-- Linux → cron (tagged `# vixlify-content-daily`)
+- macOS → launchd (`com.content.daily`)
+- Windows → Task Scheduler (`ContentDaily`, runs `pythonw.exe`)
+- Linux → cron (tagged `# content-daily`)
 
 **Commands:**
 ```bash
