@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cara Kerja Automation — Content Creation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0f1115;
+    color: #e6e8ec;
+    line-height: 1.6;
+    padding: 32px 16px 80px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .sub { color: #9aa0aa; font-size: 15px; margin-bottom: 36px; }
+  h2 { font-size: 18px; font-weight: 650; margin: 44px 0 16px; letter-spacing: -0.01em; }
+  .lead { color: #b9bec7; font-size: 15px; margin-bottom: 8px; }
+
+  /* WAT */
+  .wat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 8px 0 8px; }
+  .wat-card { background: #171a21; border: 1px solid #232732; border-radius: 12px; padding: 16px; }
+  .wat-card .tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .wat-card h3 { font-size: 15px; margin: 6px 0 4px; }
+  .wat-card p { font-size: 13px; color: #9aa0aa; }
+  .w-blue .tag { color: #6ea8fe; } .w-green .tag { color: #5fd29a; } .w-amber .tag { color: #e8b765; }
+
+  /* flow */
+  .flow { display: flex; flex-direction: column; align-items: center; gap: 0; margin-top: 8px; }
+  .node {
+    width: 100%; max-width: 640px; border-radius: 12px; padding: 16px 20px;
+    border: 1px solid; position: relative;
+  }
+  .node .step { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.8; }
+  .node h3 { font-size: 16px; margin: 3px 0 4px; }
+  .node .tool { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: #868d98; opacity: 0.85; }
+  .node p { font-size: 13.5px; color: #aab0b9; margin-top: 4px; }
+
+  .n-input { background: #1a1d26; border-color: #2e3442; }
+  .n-purple { background: #1c1830; border-color: #3a2f5c; }
+  .n-green { background: #14211b; border-color: #1f4035; }
+  .n-amber { background: #221d12; border-color: #4a3c1d; }
+  .n-blue { background: #131d2b; border-color: #1f3a55; }
+  .n-final { background: #1a1410; border-color: #4a3322; }
+
+  .arrow { width: 2px; height: 24px; background: #3a414f; margin: 0 auto; position: relative; }
+  .arrow::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #3a414f; }
+
+  /* parallel block */
+  .parallel-label { font-size: 12px; color: #6ea8fe; font-weight: 600; margin: 4px 0; display: flex; align-items: center; gap: 6px; }
+  .parallel { width: 100%; max-width: 640px; border: 1px dashed #2f6ab0; border-radius: 14px; padding: 16px; background: #0e1722; }
+  .par-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .par-card { background: #14211b; border: 1px solid #1f4035; border-radius: 10px; padding: 12px; }
+  .par-card.amber { background: #221d12; border-color: #4a3c1d; }
+  .par-card .step { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #5fd29a; letter-spacing: 0.05em; }
+  .par-card.amber .step { color: #e8b765; }
+  .par-card h4 { font-size: 13.5px; margin: 4px 0 3px; }
+  .par-card .tool { font-family: ui-monospace, Menlo, monospace; font-size: 10.5px; color: #868d98; word-break: break-all; }
+  .par-card p { font-size: 12px; color: #9aa0aa; margin-top: 4px; }
+
+  .status { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; margin-top: 8px; }
+  .ok { background: #16361f; color: #6ee7a0; }
+  .wait { background: #3a2f12; color: #f0c861; }
+
+  /* file table */
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #232732; }
+  th { color: #9aa0aa; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+  td.file { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; color: #8fb8f0; white-space: nowrap; }
+
+  .run { background: #0c0f14; border: 1px solid #232732; border-radius: 10px; padding: 14px 16px; margin-top: 12px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: #b9e6c8; overflow-x: auto; }
+  .run .c { color: #6b7280; }
+  .note { background: #1a1712; border: 1px solid #3a2f12; border-radius: 10px; padding: 12px 16px; font-size: 13.5px; color: #d8c79a; margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Cara Kerja Automation Content Creation</h1>
+  <div class="sub">Dari satu topik → caption, referensi gambar, format, mockup brief, dan Google Doc otomatis.</div>
+
+  <h2>1. Fondasi: Framework WAT</h2>
+  <p class="lead">Sistem dibagi 3 lapisan supaya andal — AI mengurus "berpikir", kode mengurus "eksekusi".</p>
+  <div class="wat">
+    <div class="wat-card w-blue"><div class="tag">Workflow</div><h3>Instruksi</h3><p>SOP dalam Markdown yang menjelaskan langkah & aturan. File: <code>workflows/content_creation.md</code></p></div>
+    <div class="wat-card w-green"><div class="tag">Agent</div><h3>Pengambil Keputusan</h3><p>Claude membaca workflow, memanggil tools dengan urutan benar, menangani error.</p></div>
+    <div class="wat-card w-amber"><div class="tag">Tools</div><h3>Eksekusi</h3><p>Script Python di <code>tools/</code> yang benar-benar bekerja: panggil API, olah data.</p></div>
+  </div>
+
+  <h2>2. Alur Kerja (Pipeline)</h2>
+  <p class="lead">Inilah yang terjadi setiap kali kamu menjalankan satu topik:</p>
+
+  <div class="flow">
+    <div class="node n-input">
+      <div class="step">Input</div>
+      <h3>Kamu ketik 1 topik</h3>
+      <p class="tool">python3 run.py "Gravestone Doji candle"</p>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="parallel-label">⚡ Berjalan PARALEL (3 sekaligus — hemat waktu)</div>
+    <div class="parallel">
+      <div class="par-grid">
+        <div class="par-card">
+          <div class="step">Langkah 1a</div>
+          <h4>Buat Caption</h4>
+          <div class="tool">generate_captions.py</div>
+          <p>Claude bikin caption Instagram, Threads, X (English).</p>
+          <span class="status ok">✓ JALAN</span>
+        </div>
+        <div class="par-card">
+          <div class="step">Langkah 1b</div>
+          <h4>Cari Gambar Ref</h4>
+          <div class="tool">search_image_refs.py</div>
+          <p>Claude susun query → BrowserAct scrape Bing Images → URL gambar asli.</p>
+          <span class="status ok">✓ JALAN</span>
+        </div>
+        <div class="par-card amber">
+          <div class="step">Langkah 1c</div>
+          <h4>Tentukan Format</h4>
+          <div class="tool">determine_format.py</div>
+          <p>Claude putuskan: single image atau carousel?</p>
+          <span class="status ok">✓ JALAN</span>
+        </div>
+      </div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="node n-amber">
+      <div class="step">Langkah 2</div>
+      <h3>Buat Mockup Brief</h3>
+      <p class="tool">generate_mockup_brief.py</p>
+      <p>Claude tulis brief per slide: headline, body, CTA, catatan visual. (butuh hasil format dari langkah 1c)</p>
+      <span class="status ok">✓ JALAN</span>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="node n-blue">
+      <div class="step">Langkah 3</div>
+      <h3>Compile ke Google Docs</h3>
+      <p class="tool">compile_to_gdocs.py</p>
+      <p>Semua hasil disusun jadi 1 Google Doc rapi dengan 3 bagian: Caption, Referensi Gambar, Mockup Brief.</p>
+      <span class="status ok">✓ JALAN</span>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="node n-final">
+      <div class="step">Output</div>
+      <h3>Link Google Doc siap pakai</h3>
+      <p>Tim desain tinggal buka, eksekusi, sesuaikan brand guideline.</p>
+    </div>
+  </div>
+
+  <h2>3. File-File Penting</h2>
+  <table>
+    <thead><tr><th>File</th><th>Fungsi</th></tr></thead>
+    <tbody>
+      <tr><td class="file">run.py</td><td>Otak orkestrasi — menjalankan semua tools dengan urutan benar (paralel + berurutan)</td></tr>
+      <tr><td class="file">tools/generate_captions.py</td><td>Generate caption 3 platform</td></tr>
+      <tr><td class="file">tools/search_image_refs.py</td><td>Cari URL gambar via Google</td></tr>
+      <tr><td class="file">tools/determine_format.py</td><td>Putuskan single vs carousel</td></tr>
+      <tr><td class="file">tools/generate_mockup_brief.py</td><td>Tulis brief desain per slide</td></tr>
+      <tr><td class="file">tools/compile_to_gdocs.py</td><td>Susun semua jadi Google Doc</td></tr>
+      <tr><td class="file">tools/utils.py</td><td>Helper parsing JSON dari jawaban Claude</td></tr>
+      <tr><td class="file">.env</td><td>Tempat menyimpan API keys (rahasia)</td></tr>
+      <tr><td class="file">credentials.json / token.json</td><td>Login Google untuk akses Google Docs</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Cara Menjalankan</h2>
+  <div class="run">
+    <span class="c"># masuk ke folder project</span><br>
+    cd "/Users/vicorinanda/Documents/Vixlify-Hero/Agentic AI"<br><br>
+    <span class="c"># jalankan dengan topik apa saja</span><br>
+    python3 run.py "Bull flag pattern"
+  </div>
+
+  <div class="note" style="background:#101f15; border-color:#1f4030; color:#9fdcb4;">
+    <strong>Status saat ini:</strong> ✅ 5 dari 5 komponen jalan sempurna. Pencarian gambar memakai <strong>BrowserAct yang men-scrape Bing Images</strong> — Claude menyusun query yang tepat, BrowserAct mengambil <strong>URL gambar asli</strong>, dan kalau gagal otomatis fallback ke link Google Images. Tanpa Google Custom Search API (yang diblokir 403).
+  </div>
+</div>
+</body>
+</html>
